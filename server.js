@@ -1,8 +1,9 @@
 // call the packages we need
-var express    = require('express');        // call express
-var app        = express();                 // define our app using express
-var bodyParser = require('body-parser');
-var userRoutes = require('./routes/userRoutes');
+var express    	= require('express');        // call express
+var app        	= express();                 // define our app using express
+var bodyParser 	= require('body-parser');
+var userRoutes	= require('./routes/userRoutes');
+var user 		= require('./models/user');
 
 // configure app to use bodyParser()
 // this will let us get the data from a POST
