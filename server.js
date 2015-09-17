@@ -2,7 +2,7 @@
 var express    = require('express');        // call express
 var app        = express();                 // define our app using express
 var bodyParser = require('body-parser');
-var userRoutes = require('./routes/userroutes');
+var userRoutes = require('./routes/userRoutes');
 
 //var router = express.Router();              // get an instance of the express Router
 
