@@ -17,7 +17,7 @@ orm.connect("my sql://admin:Pass123@hots/AbelinosRestaurant", function (err, db)
 	}, {
 		methods: {
 			fullname: function () {
-				return this.name + '' + this.lastname;
+				return this.name + ' ' + this.lastname;
 			}
 		}
 	});
