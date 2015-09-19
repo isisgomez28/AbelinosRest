@@ -25,3 +25,5 @@ db.on('connect', function(err){
 		}
 	});
 });
+
+module.exports = db;
