@@ -1,9 +1,13 @@
+module.exports = function (router){
 
-// call the packages we need
-var express	= require('express');                        // call express
-var app		= module.exports = express();                 // define our app using express
+	router.get('/user', function (req, res){
+		res.json({var: "retorna todos los usuarios"});
+	});
 
-// test route to make sure everything is working (accessed at GET http://localhost:8080/api)
-app.get('/api', function(req, res) {
-    res.json({ message: 'hooray! welcome to our api!' });   
-});
+	//Crea un usario (por el verbo POST)
+	router.post('/user', function (req, res){
+	});
+
+
+	return router;
+}

@@ -1,23 +1,40 @@
-// call the packages we need
-var express    = require('express');        // call express
-var app        = express();                 // define our app using express
-var bodyParser = require('body-parser');
-var userRoutes = require('./routes/userRoutes');
 
-//var router = express.Router();              // get an instance of the express Router
+// get the packages we need ============
+// =======================
+var express     = require('express');
+var app         = express();
+var bodyParser  = require('body-parser');
+var jwt    = require('jsonwebtoken'); // used to create, sign, and verify tokens
+var config = require('./config'); // get our config file
+//Routers por modulos
+var userroutes = require('./routes/userroutes')(express.Router());
+var orderroutes = require('./routes/orderroutes')(express.Router());
+var dishroutes = require('./routes/dishroutes')(express.Router());
+// =======================
+// configuration =========
+// =======================
+var port = process.env.PORT || 8080;
 
-// configure app to use bodyParser()
-// this will let us get the data from a POST
-app.use(bodyParser.urlencoded({ extended: true }));
+app.set('superSecret', config.secret); // secret variable
+// use body parser so we can get info from POST and/or URL parameters
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
-var port = process.env.PORT || 8080;        // set our port
 
-// REGISTER OUR ROUTES -------------------------------
-// all of our routes will be prefixed with /api
-app.use(userRoutes);
 
-// START THE SERVER
-// =============================================================================
+// rutas basicas
+app.get('/', function(req, res) {
+    res.send('Hello! The API is at http://localhost:' + port + '/api');
+});
+
+// TODO: route to authenticate a user (POST http://localhost:8080/api/authenticate)
+
+// TODO: route middleware to verify a token
+
+// Agregar Routers a la express app.
+app.use('/abelinosapi', userroutes);
+app.use('/abelinosapi', orderroutes);
+app.use('/abelinosapi', dishroutes);
+// start the server 
 app.listen(port);
-console.log('Magic happens on port ' + port);
+console.log('Server en http://localhost:' + port);
