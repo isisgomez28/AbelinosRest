@@ -1,11 +1,17 @@
 var express	= require('express'); 
 var router 	= express.Router();
-//var User 	= require('./models/user');
+var User 	= require('./models/user');
 var i = 0;
 
-router.use(function (req, res, next){
+router.use('/api', function (req, res, next){
 	res.json({message: 'hooray! welcome to our api!'});
 	next();
+});
+
+router.put('/users/:user_id ', function(){
+	// if(err)
+	// 	res.send(err);
+	res.json({message: 'Editando un Usuario!'});
 });
 
 router.route('/users')
