@@ -31,14 +31,4 @@ orm.connect(connection, function (err, db) {
 			username: orm.enforce.unique("Cuenta de Usuario ya existe")
 		}
 	});
-
-// 	db.sync(function(err) {
-// 		if (err)
-// 			throw err;
-
-// 		User.create({username: "admin", name: "Administrador", lastname: "Administrador", email: "", password: "Pass123", isAdmin: true}, function(err){
-// 			if (err)
-// 				throw err;
-// 		});
-// 	});
 });
