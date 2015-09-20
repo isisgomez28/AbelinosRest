@@ -1,9 +1,9 @@
 var orm		= require ("orm");
-var db = orm.connect('mysql://root:pass123@localhost/abelinos');
+var db = orm.connect('mysql://root:1234@localhost:3306/abelinos');
 
 db.on('connect', function(err){
 	if (err)
-		return console.error('connection error: ' + err);
+		return console.error('connection error => ' + err);
 
 	// Propiedades del Modelo
 	var User = db.define('user', {
