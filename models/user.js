@@ -1,5 +1,5 @@
-var orm		= require ("orm");
-var db = orm.connect('mysql://root:1234@localhost:3306/abelinos');
+var orm	= require ("orm");
+var db = orm.connect('mysql://root:1234@localhost:3328/abelinos');
 
 db.on('connect', function(err){
 	if (err)
@@ -7,13 +7,13 @@ db.on('connect', function(err){
 
 	// Propiedades del Modelo
 	var User = db.define('user', {
-		username		: {type: String, require: true, key: true},
-		name			: {type: String, require: true},
-		lastname		: {type: String, require: true},
-		email			: {type: String, require: true},
-		password		: {type: Password, require: true},
-		isAdmin			: {type: Boolean},
-		passwordReset	: {type: String}
+		username		: {type: "text", unique: true, size: 20},
+		name			: {type: "text", require: true, size: 50},
+		lastname		: {type: "text", require: true, size: 50},
+		email			: {type: "text", unique: true, size: 30},
+		password		: {type: "text", require: true, size: 18},
+		isAdmin			: {type: "boolean"},
+		passwordReset	: {type: "text"}
 	}, {
 		methods: {
 			fullname: function () {
