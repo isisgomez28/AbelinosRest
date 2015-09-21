@@ -17,3 +17,10 @@ Migraciones aun no han sido creadas.
 Crear manualmente en MySQL:
 	DASE DE DATOS: abelinos
 	TABLA: users
+
+
+# Tutoriales
+-- Building a Restful API with Node
+http://scottksmith.com/blog/2014/05/02/building-restful-apis-with-node/
+Ese blog muestra un tutorial completo de construcción de una API.
+Incluye autentificación empleando Passport
