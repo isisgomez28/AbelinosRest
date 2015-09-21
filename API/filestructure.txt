@@ -1,8 +1,0 @@
-    - app/
-    ----- models/
-    ---------- dish.js  // our dish model
-    ---------- order.js  // our order model
-    ---------- user.js  // our user model
-    - node_modules/     // created by npm. holds our dependencies/packages
-    - package.json      // define all our node app and dependencies
-    - server.js         // configure our application and create routes
