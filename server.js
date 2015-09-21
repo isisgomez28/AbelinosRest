@@ -1,20 +1,58 @@
-// call the packages we need
-var express    	= require('express');        // call express
-var app        	= express();                 // define our app using express
-var bodyParser 	= require('body-parser');
-var userRoutes	= require('./routes/userRoutes');
+var express = require('express');
+var sequelizeOrm = require('sequelize');
+var bodyParser = require('body-parser');
 
-// configure app to use bodyParser()
-// this will let us get the data from a POST
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
+// Express Application
+var app = express();
+app.use(bodyParser.urlencoded({
+	extended: true
+}));
 
-var port = process.env.PORT || 8080;	// set our port
+// Conexion con Base de Datos.
+var sequelize = new sequelizeOrm('abelinos', 'root', '1234', {
+  host: "localhost",
+  port: 3328
+});
 
-// REGISTER OUR ROUTES -------------------------------
-app.use(userRoutes);
+// Modelos
+var User = require('./models/user');
 
-// START THE SERVER
-// =============================================================================
+// Puerto del Servidor
+var port = process.env.PORT || 3434;
+
+// Router
+var router = express.Router();
+
+// Dummy router
+router.get('/', function (req, res){
+	res.json({message: 'running the basic router'});
+});
+
+// UserRoutes
+var userRoute = router.route('/users');
+
+userRoute.post(function (req, res){
+	console.log('Peticion de Creacion de Nuevo Usuario');
+	
+	var newUser = {
+		username: req.body.username,
+		name: req.body.name,
+		lastname: req.body.lastname
+	}
+
+	User.create(newUser)
+		.then(function(newUser){
+			res.json({ message: 'NUEVO USUARIO CREADO', data: newUser });
+		})
+		.catch(function(err){
+			console.log('ERROR en Peticion de Creacion de Nuevo Usuario');
+			if (err)
+      			res.send(err);
+		});
+});
+
+
+app.use('/api', router);
+
 app.listen(port);
-console.log('Magic happens on port ' + port);
+console.log('Using port ~> ' + port);

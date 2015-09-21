@@ -1,29 +1,22 @@
-var orm	= require ("orm");
-var db = orm.connect('mysql://root:1234@localhost:3328/abelinos');
+var sequelizeOrm = require('sequelize');
 
-db.on('connect', function(err){
-	if (err)
-		return console.error('connection error => ' + err);
-
-	// Propiedades del Modelo
-	var User = db.define('user', {
-		username		: {type: "text", unique: true, size: 20},
-		name			: {type: "text", require: true, size: 50},
-		lastname		: {type: "text", require: true, size: 50},
-		email			: {type: "text", unique: true, size: 30},
-		password		: {type: "text", require: true, size: 18},
-		isAdmin			: {type: "boolean"},
-		passwordReset	: {type: "text"}
-	}, {
-		methods: {
-			fullname: function () {
-				return this.name + ' ' + this.lastname;		
-			}
-		}, 
-		validations: {
-			username: orm.enforce.unique("Cuenta de Usuario ya existe")
-		}
-	});
+var sequelize = new sequelizeOrm('abelinos', 'root', '1234', {
+  host: "localhost",
+  port: 3328
 });
 
-module.exports = db;
+var User = sequelize.define ('User', {
+    username: {type: sequelizeOrm.STRING, allowNull: false, primaryKey: true},
+    name: {type: sequelizeOrm.STRING, allowNull: false},
+    lastname: {type: sequelizeOrm.STRING, allowNull: false},
+    // password: {type: Sequelize.STRING, allowNull: false},
+    // email: {type: Sequelize.STRING, allowNull: false},
+    // isAdmin: Sequelize.BOOLEAN,
+    // passwordReset: Sequelize.STRING
+    createdAt: false,
+    updatedAt: false
+  }, {
+    tableName: 'Users' // this will define the table's name
+});
+
+module.exports = sequelize.model('User', User);
