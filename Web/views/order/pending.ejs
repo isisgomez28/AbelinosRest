@@ -1,0 +1,29 @@
+<div class="container">
+	<h2 class="mb10">Ordenes Pendientes</h2>
+	<div class="row">
+		<% _.each(orders, function(order){ %>
+		<div class="col-md-4 col-md-offset-1 box order" id="order-<%= order.id %>">
+			<h3>Orden #<%= order.id %></h3>
+			<% if(order.status == 0){ %>
+				<input type="checkbox" data-id="<%= order.id %>" data-dishes-done="<%= order.dishesDone %>" class="order-status-btn status" name="status" data-next-status="1" data-dishes="<%= order.dishes.length %>"
+				<%- order.dishesDone>0? 'disabled':''%>>
+			<% }else{ %>
+				<input type="checkbox" data-id="<%= order.id %>" data-dishes-done="<%= order.dishesDone %>" class="order-status-btn status" checked="checked" data-next-status="0" data-dishes="<%= order.dishes.length %>" <%- order.dishesDone>0? 'disabled':''%>>
+			<% } %>
+			<ul class="mt10">
+				<% _.each(order.dishes, function(orderDish){ %>
+				<li>
+					<span><%=dishes[orderDish.dish].name%></span>
+					<% if(orderDish.done){ %>
+						<input type="checkbox" data-order-id="<%= order.id %>" data-id="<%= orderDish.id %>" class="order-dish-status" checked="checked" <%- order.status==0? 'disabled':''%> >
+					<% }else{ %>
+						<input type="checkbox" data-order-id="<%= order.id %>" data-id="<%= orderDish.id %>" class="order-dish-status" <%- order.status==0 ? 'disabled':''%>>
+					<% } %>
+					<div class="clearfix"></div>
+				</li>
+				<% })%>
+			</ul>
+		</div>
+		<% }) %>
+	</div>
+</div>

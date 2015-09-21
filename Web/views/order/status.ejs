@@ -1,0 +1,26 @@
+<section class="container status-section" id="order-status-section">
+  <div class="box">
+    <h4>Su Orden</h4>
+    <ul class="mt10">
+      <% _.each(order.dishes, function(dish){ %>
+      <li>
+        <span><%= dish.dishName %></span>
+        <input type="checkbox" class="order-status-checkbox" <%= dish.done?'checked':'' %> disabled/>
+        <div class="clearfix"></div>
+      </li>
+      <% }) %>
+    </ul>
+  </div>
+  <div id="status-info">
+    <span class="status <%= order.status==0?'active':'' %>">Pendiente</span>
+    <span class="glyphicon glyphicon-arrow-right"></span>
+    <span class="status <%= order.status==1?'active':'' %>">Cocinando</span>
+    <span class="glyphicon glyphicon-arrow-right"></span>
+    <span class="status <%= order.status==2?'active':'' %>">Por Entregar</span>
+  </div>
+</section>
+
+<script type="text/javascript">
+  // Refresh webpage periodically
+  window.setTimeout(function(){location.reload()},30*1000);
+</script>

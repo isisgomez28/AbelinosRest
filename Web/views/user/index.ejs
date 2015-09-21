@@ -1,0 +1,59 @@
+<div class="container">
+	<h3>Usuarios</h3>
+	<div class="panel panel-default">
+		<div class="panel-heading">Lista de Usuarios</div>
+		<table class="table">
+			<!-- Encabezados de Columnas -->
+			<tr>
+				<th class="col-md-3">ID</th>
+				<th class="col-md-3">Cuenta de Acceso</th>
+				<th class="col-md-3">Nombre(s)</th>
+				<th class="col-md-3">Apellido(s)</th>
+				<th class="col-md-3">Tipo</th>
+				<th class="col-md-3">Acciones</th>
+				<th class="col-md-3"></th>
+			</tr>
+			<% _.each(users, function (user) { %>
+				<tr data-id="<%= user.id%>" data-model="user">
+					<td class="col-md-3"><%= user.id%></td>
+					<td class="col-md-3"><%= user.username%></td>
+					<td class="col-md-3"><%= user.name%></td>
+					<td class="col-md-3"><%= user.lastName%></td>
+					<td class="col-md-3">
+						<% if(user.isAdmin == true) {%>
+						Administrador
+						<% }else {%>
+						Usuario
+						<% } %>
+					</td>
+					<td class="col-md-1">
+						<a href="/user/show/<%= user.id %>" class="btn btn-sm btn-primary">Detalles</a>
+					</td>
+					<td class="col-md-1">
+						<a href="/user/edit/<%= user.id %>" class="btn btn-sm btn-warning">Modificar</a>
+					</td>
+					<% if(user.id != loggedUser.id){ %>
+					<td  class="col-md-1">
+						<button type="button" class="btn btn-default btn-sm btn-delete-user" data-toggle="modal" data-target="#confirm-destroy" data-model="<%= JSON.stringify(user) %>">
+								<span class="glyphicon glyphicon-trash"></span>
+								<input type="hidden" name="_csrf" value="<%= _csrf%>">								
+						</button>
+<!-- 						<form action="/user/destroy/<%= user.id%>" method="POST">
+							<input type="hidden" name="_method" value="delete"/>
+							<input type="submit" class="btn btn-sm btn-danger" value="Eliminar"/>	
+							<input type="hidden" name="_csrf" value="<%= _csrf%>">						
+						</form> -->
+					</td>
+					<% } %>
+				</tr>
+			<% })%>
+		</table>
+	</div>
+</div>
+
+<% var target = 'confirm-destroy' %>
+<% var title = 'Eliminar Usuario' %>
+<% var url = 'delete/' %>
+<% var actionType = 'Eliminar' %>
+<% var type = 'delete' %>
+<%- include confirm-destroy %>
