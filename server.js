@@ -28,10 +28,11 @@ router.get('/', function (req, res){
 	res.json({message: 'running the basic router'});
 });
 
-// UserRoutes
-var userRoute = router.route('/users');
+// usersRoute
+var usersRoute = router.route('/users');
 
-userRoute.post(function (req, res){
+// api/users for POST
+usersRoute.post(function (req, res){
 	console.log('Peticion de Creacion de Nuevo Usuario');
 	
 	var newUser = {
@@ -51,6 +52,44 @@ userRoute.post(function (req, res){
 		});
 });
 
+// api/users for GET
+usersRoute.get(function(req, res){
+	User.findAll().then(function(err, users){
+		if (err)
+			res.send(err);
+
+		res.json(users);
+	});
+});
+
+// UserRoute - Single Object
+var userRoute = router.route('/user/:username');
+
+userRoute.get(function(req, res){
+	User.findById(req.params.username).then(function(err, user){
+		if (err)
+			res.send(err);
+
+		res.json(user);
+	});	
+});
+
+userRoute.put(function(req, res){
+	User.findById(req.params.username).then(function(err, user){
+		if (err)
+			res.send(err);
+
+		user.name = req.body.name;
+		user.lastname = req.body.lastname;
+
+		user.save(function(err){
+			if (err)
+				res.send(err);
+
+			res.json(user);
+		});
+	});	
+});
 
 app.use('/api', router);
 
