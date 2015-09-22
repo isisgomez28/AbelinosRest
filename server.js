@@ -38,7 +38,10 @@ usersRoute.post(function (req, res){
 	var newUser = {
 		username: req.body.username,
 		name: req.body.name,
-		lastname: req.body.lastname
+		lastname: req.body.lastname,
+		password: req.body.password,
+		email: req.body.email,
+		isAdmin: req.body.isAdmin
 	}
 
 	User.create(newUser)
@@ -80,19 +83,30 @@ userRoute.put(function (req, res){
 	userToUpdate.username = req.body.username;
 	userToUpdate.name = req.body.name;
 	userToUpdate.lastname = req.body.lastname;
+	userToUpdate.password = req.body.password;
+	userToUpdate.email = req.body.email;
+	userToUpdate.isAdmin = req.body.isAdmin;
 
-	userToUpdate.updateByUsername(req.params.username, function (success){
-		console.log(sucess);
-
-		if (success){
-			res.json({message: 'Usuario Actualizado', data: userToUpdate});
-		}
-		else {
-			res.send(401, "Usuario no EXISTE");
-		}
-	}, function(err){
-		res.json({message: 'Usuario Actualizado', data: userToUpdate});
+	User.update(userToUpdate).then(function(userToUpdate){
+		res.json({ message: 'USUARIO ACTUALIZADO', data: userToUpdate });
+	}).catch(function(err){
+		console.log('ERROR en Peticion de Actualizacion de Usuario');
+		if (err)
+  			res.send(err);
 	});
+
+	// userToUpdate.updateByUsername(req.params.username, function (success){
+	// 	console.log(sucess);
+
+	// 	if (success){
+	// 		res.json({message: 'Usuario Actualizado', data: userToUpdate});
+	// 	}
+	// 	else {
+	// 		res.send(401, "Usuario no EXISTE");
+	// 	}
+	// }, function(err){
+	// 	res.json({message: 'Usuario Actualizado', data: userToUpdate});
+	// });
 });
 
 app.use('/api', router);
