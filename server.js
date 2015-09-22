@@ -74,21 +74,25 @@ userRoute.get(function(req, res){
 	});	
 });
 
-userRoute.put(function(req, res){
-	User.findById(req.params.username).then(function(err, user){
-		if (err)
-			res.send(err);
+userRoute.put(function (req, res){
+	var userToUpdate = User.build();
 
-		user.name = req.body.name;
-		user.lastname = req.body.lastname;
+	userToUpdate.username = req.body.username;
+	userToUpdate.name = req.body.name;
+	userToUpdate.lastname = req.body.lastname;
 
-		user.save(function(err){
-			if (err)
-				res.send(err);
+	userToUpdate.updateByUsername(req.params.username, function (success){
+		console.log(sucess);
 
-			res.json(user);
-		});
-	});	
+		if (success){
+			res.json({message: 'Usuario Actualizado', data: userToUpdate});
+		}
+		else {
+			res.send(401, "Usuario no EXISTE");
+		}
+	}, function(err){
+		res.json({message: 'Usuario Actualizado', data: userToUpdate});
+	});
 });
 
 app.use('/api', router);
