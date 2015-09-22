@@ -16,21 +16,6 @@ var User = sequelize.define ('User', {
     createdAt: false,
     updatedAt: false
   }, {
-    instanceMethods: {
-      updateByUsername: function (usernameID, onSuccess, onError) {
-          var usernameUp = usernameID;
-          var nameUp = this.name;
-          var lastnameUp = this.lastname;
-
-          User.update({name: nameUp, lastname: lastnameUp}, {where: {username: usernameUp}})
-          .then(function (onSuccess){
-              this;
-          })
-          .then(function (onError){
-              //onError;
-          });
-      }
-    },
     tableName: 'Users' // this will define the table's name
 });
 

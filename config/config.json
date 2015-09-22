@@ -1,0 +1,9 @@
+{
+    "development": {
+        "database": "abelinos",
+        "host": "localhost",
+        "port": "3328",
+        "user": "root",
+        "password" : "1234",
+    }
+}

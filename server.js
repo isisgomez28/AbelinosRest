@@ -78,35 +78,20 @@ userRoute.get(function(req, res){
 });
 
 userRoute.put(function (req, res){
-	var userToUpdate = User.build();
 
-	userToUpdate.username = req.body.username;
-	userToUpdate.name = req.body.name;
-	userToUpdate.lastname = req.body.lastname;
-	userToUpdate.password = req.body.password;
-	userToUpdate.email = req.body.email;
-	userToUpdate.isAdmin = req.body.isAdmin;
-
-	User.update(userToUpdate).then(function(userToUpdate){
-		res.json({ message: 'USUARIO ACTUALIZADO', data: userToUpdate });
+	User.findById(req.params.username).then(function(user){
+		user.updateAttributes({
+			name: req.body.name, 
+			lastname: req.body.lastname,
+			password: req.body.password,
+			email: req.body.email,
+			isAdmin: req.bod.isAdmin
+		}).then(function(userUP){
+			res.json({data: userUP});
+		});
 	}).catch(function(err){
-		console.log('ERROR en Peticion de Actualizacion de Usuario');
-		if (err)
-  			res.send(err);
+		res.send(err);
 	});
-
-	// userToUpdate.updateByUsername(req.params.username, function (success){
-	// 	console.log(sucess);
-
-	// 	if (success){
-	// 		res.json({message: 'Usuario Actualizado', data: userToUpdate});
-	// 	}
-	// 	else {
-	// 		res.send(401, "Usuario no EXISTE");
-	// 	}
-	// }, function(err){
-	// 	res.json({message: 'Usuario Actualizado', data: userToUpdate});
-	// });
 });
 
 app.use('/api', router);
