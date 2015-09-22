@@ -1,6 +1,7 @@
 var express = require('express');
 var sequelizeOrm = require('sequelize');
 var bodyParser = require('body-parser');
+var password = require('passport');
 
 // Express Application
 var app = express();
@@ -16,6 +17,7 @@ var sequelize = new sequelizeOrm('abelinos', 'root', '1234', {
 
 // Modelos
 var User = require('./models/user');
+var Client = require('./models/client');
 
 // Puerto del Servidor
 var port = process.env.PORT || 3434;
@@ -68,6 +70,7 @@ usersRoute.get(function(req, res){
 // UserRoute - Single Object
 var userRoute = router.route('/user/:username');
 
+// UserRoute - GET
 userRoute.get(function(req, res){
 	User.findById(req.params.username).then(function(err, user){
 		if (err)
@@ -77,6 +80,7 @@ userRoute.get(function(req, res){
 	});	
 });
 
+// UserRoute - UPDATE
 userRoute.put(function (req, res){
 
 	User.findById(req.params.username).then(function(user){
@@ -91,6 +95,40 @@ userRoute.put(function (req, res){
 		});
 	}).catch(function(err){
 		res.send(err);
+	});
+});
+
+// clientsRoute
+var clientRoute = router.route('/client');
+
+clientRoute.post(function (req, res){
+	console.log('Peticion de Creacion de Nuevo Cliente');
+	
+	var newClient = {
+		name: req.body.name,
+		id: req.body.id,
+		secret: req.body.secret,
+		userID: req.body.userID
+	}
+
+	Client.create(newClient)
+		.then(function(newClient){
+			res.json({ message: 'NUEVO CLIENTE CREADO', data: newClient});
+		})
+		.catch(function(err){
+			console.log('ERROR en Peticion de Creacion de Nuevo Cliente');
+			if (err)
+      			res.send(err);
+		});
+});
+
+// api/users for GET
+clientRoute.get(function(req, res){
+	Client.findById(id: req.client.id).then(function(err, clients){
+		if (err)
+			res.send(err);
+
+		res.json(clients);
 	});
 });
 

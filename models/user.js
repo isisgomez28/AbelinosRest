@@ -1,4 +1,5 @@
 var sequelizeOrm = require('sequelize');
+var bcrypt = require('bcrypt-nodejs');
 
 var sequelize = new sequelizeOrm('abelinos', 'root', '1234', {
   host: "localhost",
@@ -16,7 +17,16 @@ var User = sequelize.define ('User', {
     createdAt: false,
     updatedAt: false
   }, {
-    tableName: 'Users' // this will define the table's name
+    instanceMethods : {
+      comparePassword: function (candidatePassword, cb) {
+          bcrypt.compare(candidatePassword, this.getDataValue('password'), function(err, isMatch){
+              if (err)
+                return cb(err);
+
+              cb(null, isMatch);
+          });
+      }
+    }, tableName: 'Users' // this will define the table's name
 });
 
 module.exports = sequelize.model('User', User);
