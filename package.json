@@ -1,9 +1,0 @@
-{
-    "name": "node-api",
-    "main": "server.js",
-    "dependencies": {
-        "express": "~4.0.0",
-        "orm": "~2.1.27",
-        "body-parser": "~1.0.1"
-    }
-}
