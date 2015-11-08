@@ -21,8 +21,6 @@ angular.module('starter.controllers', [])
   $scope.chat = Chats.get($stateParams.chatId);
 })
 
-.controller('AccountCtrl', function($scope) {
-  $scope.settings = {
-    enableFriends: true
-  };
+.controller('OrderCtrl', function($scope) {
+  // Aqui metodos para la Orden ;)
 });
