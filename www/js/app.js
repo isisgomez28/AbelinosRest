@@ -86,6 +86,16 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
         controller: 'OrderDetailCtrl'
       }
     }
+  })
+
+  .state('tab.order-placed', {
+    url: '/order/placed',
+    views: {
+      'tab-order': {
+        templateUrl: 'templates/order-placed.html',
+        controller: 'OrderDetailCtrl'
+      }
+    }
   });
 
   // if none of the above states are matched, use this as the fallback

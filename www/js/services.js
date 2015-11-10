@@ -1,5 +1,9 @@
 angular.module('starter.services', [])
 
+// Validar conexion a Internet :D
+// Tamaño de la imagen con resize
+// Campo de Tarjeta de Credito en el form de la orden
+
 .factory('Chats', function() {
   // Might use a resource here that returns a JSON array
 
