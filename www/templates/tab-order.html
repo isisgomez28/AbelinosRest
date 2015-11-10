@@ -1,51 +1,53 @@
 <ion-view view-title="Orden">
   <ion-content>
-  	<div class="list list-inset">
-		<div class="item item-divider">
-			Informacion del Cliente
-		</div>
-		<label class="item item-input">
-			<span class="input-label">Cédula</span>
-			<input type="text">
-		</label>
-		<label class="item item-input">
-			<span class="input-label">Nombre</span>
-			<input type="text">
-		</label>
-		<label class="item item-input">
-			<span class="input-label">Email</span>
-			<input type="email">
-		</label>
-		<label class="item item-input">
-			<span class="input-label">Teléfono</span>
-			<input type="tel">
-		</label>
-		<label class="item item-input" ng-show="forDelivery">
-			<span class="input-label">Dirección</span>
-			<input type="text">
-		</label>
-		<ion-checkbox ng-model="forDelivery">
-			Delivery
-		</ion-checkbox>
-      	<div class="item item-body">
-			<h4>
-				Subtotal:
-			</h4>
-			<h4>
-				ITBIS:
-			</h4>
-			<h3>
-				Total:
-			</h3>
-      	</div>
-      	<div class="row">
-      		<div class="col">
-      			<a href="#" class="button icon-left ion-chevron-left button-clear button-dark">Ver Detalle</a>
-      		</div>
-      		<div class="col">
-      			<a href="#" class="button icon-right ion-android-restaurant button-clear button-dark">Colocar Orden</a>
-      		</div>	      	
-      	</div>
-    </div>	
+  	<ion-list>
+		<ion-item>
+			<div class="item item-divider">
+				Informacion del Cliente
+			</div>
+			<label class="item item-input">
+				<span class="input-label">Cédula</span>
+				<input type="text">
+			</label>
+			<label class="item item-input">
+				<span class="input-label">Nombre</span>
+				<input type="text">
+			</label>
+			<label class="item item-input">
+				<span class="input-label">Email</span>
+				<input type="email">
+			</label>
+			<label class="item item-input">
+				<span class="input-label">Teléfono</span>
+				<input type="tel">
+			</label>
+			<label class="item item-input" ng-show="forDelivery">
+				<span class="input-label">Dirección</span>
+				<input type="text">
+			</label>
+			<ion-checkbox ng-model="forDelivery">
+				Delivery
+			</ion-checkbox>
+			<div class="item item-body">
+				<h4>
+					Subtotal:
+				</h4>
+				<h4>
+					ITBIS:
+				</h4>
+				<h3>
+					Total:
+				</h3>
+			</div>
+			<div class="row">
+			<div class="col">
+				<a href="#/tab/order/detail" class="button icon-left ion-chevron-left button-clear button-dark">Ver Detalle</a>
+			</div>
+			<div class="col">
+				<a href="#" class="button icon-right ion-android-restaurant button-clear button-dark">Colocar Orden</a>
+			</div>	      	
+			</div>
+		</ion-item>
+  	</ion-list>	
   </ion-content>
 </ion-view>

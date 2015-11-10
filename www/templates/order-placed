@@ -1,0 +1,15 @@
+<ion-view view-title="Orden Registrada">
+  	<ion-content>
+  		<div class="list card">
+  			<div class="item item-body">
+  				<h3>
+  					Orden Registrada
+  				</h3>
+  				<img class="full-image" src="../img/gracias.png">
+  				<p>
+  					Le hemos enviado correo electrónico con los detalles de su orden.
+  				</p>
+  			</div>
+  		</div>
+	</ion-content>
+</ion-view>

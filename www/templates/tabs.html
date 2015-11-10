@@ -4,14 +4,14 @@ Each tab's child <ion-nav-view> directive will have its own
 navigation history that also transitions its views in and out.
 -->
 <ion-tabs class="tabs-icon-top tabs-background-dark tabs-color-light">
-  <!-- Home Tab -->
-  <ion-tab title="Inicio" icon-off="ion-ios-chatboxes-outline" icon-on="ion-ios-chatboxes" href="#/tab/chats">
-    <ion-nav-view name="tab-chats"></ion-nav-view>
+  <!-- Inicio Tab -->
+  <ion-tab title="Inicio" icon-off="ion-ios-home-outline" icon-on="ion-ios-home" href="#/tab/home">
+    <ion-nav-view name="tab-home"></ion-nav-view>
   </ion-tab>
 
-  <!-- Dashboard Tab -->
-  <ion-tab title="Menu" icon-off="ion-ios-pulse" icon-on="ion-ios-pulse-strong" href="#/tab/dash">
-    <ion-nav-view name="tab-dash"></ion-nav-view>
+  <!-- Menu Tab -->
+  <ion-tab title="Menu" icon-off="ion-ios-pulse" icon-on="ion-ios-pulse-strong" href="#/tab/chats">
+    <ion-nav-view name="tab-chats"></ion-nav-view>
   </ion-tab>
 
   <!-- Order Tab -->
