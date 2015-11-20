@@ -15,6 +15,12 @@ angular.module('starter.controllers', [])
   };
 })
 
+.controller ('MenuCtrl', function ($scope, $state, menuService){
+    menuService.getDishes().then(function (response){
+        $scope.dishes = dishes;
+    });
+})
+
 .controller('ChatDetailCtrl', function($scope, $stateParams, Chats) {
   $scope.chat = Chats.get($stateParams.chatId);
 })

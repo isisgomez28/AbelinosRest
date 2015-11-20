@@ -4,6 +4,18 @@ angular.module('starter.services', [])
 // Tamaño de la imagen con resize
 // Campo de Tarjeta de Credito en el form de la orden
 
+.factory('menuService', function ($http){
+  var dishes = [];
+  return {
+    getDishes: function () {
+      return $http.get("http://192.241.167.243:3000/dish/dishes").then( function (response){
+          dishes = response;
+          return dishes;
+      });
+    }
+  };
+})
+
 .factory('Chats', function() {
   // Might use a resource here that returns a JSON array
 
