@@ -1,0 +1,12 @@
+Problemas con CORS en IONIC
+http://blog.ionic.io/handling-cors-issues-in-ionic/
+
+Guía para configurar los servicios
+http://mcgivery.com/ionic-using-factories-and-web-services-for-dynamic-data/
+
+POSIBLEMENTE UTIL
+Construcción desde Cero --- Muy largo :$
+https://thinkster.io/ionic-framework-tutorial
+
+Tema de Imagenes
+http://devdactic.com/complete-image-guide-ionic/
