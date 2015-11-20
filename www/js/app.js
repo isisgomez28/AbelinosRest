@@ -54,7 +54,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
       views: {
         'tab-dishes': {
           templateUrl: 'templates/tab-dishes.html',
-          controller: 'ChatsCtrl'
+          controller: 'MenuCtrl'
         }
       }
     })

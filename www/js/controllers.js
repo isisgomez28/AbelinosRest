@@ -17,7 +17,8 @@ angular.module('starter.controllers', [])
 
 .controller ('MenuCtrl', function ($scope, $state, menuService){
     menuService.getDishes().then(function (response){
-        $scope.dishes = dishes;
+        $scope.dishes = response.data;
+        console.log($scope.dishes);
     });
 })
 

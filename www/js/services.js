@@ -9,6 +9,7 @@ angular.module('starter.services', [])
   return {
     getDishes: function () {
       return $http.get("http://192.241.167.243:3000/dish/dishes").then( function (response){
+          console.log("Peticion de Platos");
           dishes = response;
           return dishes;
       });
