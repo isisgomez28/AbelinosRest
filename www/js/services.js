@@ -4,15 +4,24 @@ angular.module('starter.services', [])
 // Tamaño de la imagen con resize
 // Campo de Tarjeta de Credito en el form de la orden
 
-.factory('menuService', function ($http){
+.factory('Menu', function ($http){
+  // Load ALL dishes
   var dishes = [];
+
   return {
-    getDishes: function () {
+    // Get ALL
+    all: function () {
+      console.log("Peticion de Platos");
       return $http.get("http://192.241.167.243:3000/dish/dishes").then( function (response){
-          console.log("Peticion de Platos");
-          dishes = response;
-          return dishes;
+        dishes = response.data;
+        console.log(dishes);
+        return dishes;
       });
+    },
+    // Get ONE
+    get: function (dishID) {
+      console.log("Peticion de Plato" + dishID);
+      return dishes[dishID];
     }
   };
 })

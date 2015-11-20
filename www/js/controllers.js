@@ -15,15 +15,20 @@ angular.module('starter.controllers', [])
   };
 })
 
-.controller ('MenuCtrl', function ($scope, $state, menuService){
-    menuService.getDishes().then(function (response){
-        $scope.dishes = response.data;
-        console.log($scope.dishes);
+.controller ('MenuCtrl', function ($scope, $stateParams, Menu){
+    Menu.all().then(function (dishes){
+        $scope.dishes = dishes;
     });
+    console.log("Peticion de Platos Ctrl.");
+    console.log(Menu.all());
 })
 
-.controller('ChatDetailCtrl', function($scope, $stateParams, Chats) {
-  $scope.chat = Chats.get($stateParams.chatId);
+.controller('MenuDetailCtrl', function ($scope, $stateParams, Menu) {
+    $scope.dish = Menu.get($stateParams.dishId - 1);
+})
+
+.controller('StatusOrder', function ($scope, $stateParams, StatusOrder){
+    $scope.statusOrder = StatusOrder.get($stateParams.docId);
 })
 
 .controller('OrderCtrl', function($scope) {
