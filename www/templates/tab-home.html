@@ -3,12 +3,12 @@
     <div class="branding">
       <img src="#" alt="Abelinos Restaurant Logo">
     </div>
-	<div class="list" ng-controller="StatusOrder">
+	<div class="list" ng-controller="StatusOrderCtrl">
 		<div class="item item-divider">
 			Estado de Orden
 		</div>
 		<label class="item item-input">
-			<input type="text" placeholder="No. Cedula">
+			<input type="text" placeholder="No. Cedula" ng-model="docID">
 		</label>
 		<a class="button icon-left ion-eye button-outline button-block button-assertive" ng-click="openModal()">Ver Estado</a>
 	</div>

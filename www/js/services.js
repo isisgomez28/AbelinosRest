@@ -32,13 +32,14 @@ angular.module('starter.services', [])
     get: function (docID) {
       var req = {
         method: 'GET',
-        url: 'http://192.241.167.243:3000/order/checkstatus/',
-        params: docID 
+        url: 'http://192.241.167.243:3000/order/checkstatus',
+        params: {"idcliente": docID.toString()}
       };
       console.log ("Petición de Estado de Orden");
+      console.log("Documento de Cliente: " + docID);
+      console.log(typeof(docID));
       $http(req).then(function (response){
         statusOrder = response.data;
-        console.log(statusOrder);
         return statusOrder;
       });
     }

@@ -27,9 +27,9 @@ angular.module('starter.controllers', [])
     $scope.dish = Menu.get($stateParams.dishId - 1);
 })
 
-.controller('StatusOrder', function ($scope, $stateParams, StatusOrder){
-    var docID = {};
-    var objOrder = {};
+.controller('StatusOrderCtrl', function ($scope, $ionicModal, StatusOrder){
+    var docID = "";
+    var statusOrder = {};
 
     $ionicModal.fromTemplateUrl('templates/modal-template.html', {
       scope: $scope,
@@ -39,15 +39,16 @@ angular.module('starter.controllers', [])
    });
   
    $scope.openModal = function() {
-      console.log($scope.docID);
-      //$scope.statusOrder = StatusOrder.get($stateParams.docId);
+      docID = $scope.docID.toString();
+      statusOrder = StatusOrder.get(docID.toString());
+      console.log(statusOrder);
       $scope.modal.show();
-      docID = {};
-      $scope.docID = docID;
    };
   
    $scope.closeModal = function() {
       $scope.modal.hide();
+      docID = "";
+      $scope.docID = docID;
    };
   
    //Cleanup the modal when we're done with it!
