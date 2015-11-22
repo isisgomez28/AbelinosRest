@@ -6,22 +6,30 @@
 -->
 <ion-view view-title="Detalles de Plato">
   <ion-content class="padding">
-    <!--
-        Sustituir el #
-        por "{{dish.image}}" para las imagenes :$
-    -->
-    <h3>
-      {{dish.name}}
-    </h3>
-    <img ng-src="#" style="width: 64px; height: 64px" alt="Imagen Plato">
-    <p>
-      {{dish.description}}
-    </p>
-    <h4>
-      {{dish.type}}
-    </h4>
-    <h5>
-      {{dish.price}}
-    </h5>
+    <div class="list">
+      <!-- 
+        Sustituir el # por "{{dish.image}}" para las imagenes :$
+      -->
+      <h3>
+        {{dish.name}}
+      </h3>
+      <img ng-src="#" style="width: 64px; height: 64px" alt="Imagen Plato">
+      <h4>
+        {{dish.type}}
+      </h4>
+      <p>
+        {{dish.description}}
+      </p>
+      <h5>
+        {{dish.price}}
+      </h5>
+      <label class="item item-input" ng-show="addToOrder">
+        <span class="input-label">Cantidad</span>
+        <input type="number">
+      </label>
+      <ion-checkbox ng-model="addToOrder">
+        Agregar a Orden
+      </ion-checkbox>
+    </div>
   </ion-content>
 </ion-view>

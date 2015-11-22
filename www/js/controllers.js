@@ -31,10 +31,6 @@ angular.module('starter.controllers', [])
     $scope.statusOrder = StatusOrder.get($stateParams.docId);
 })
 
-.controller('OrderCtrl', function($scope) {
-  // Aqui metodos para la Orden ;)
-})
-
 .controller('OrderDetailCtrl', function($scope) {
 
 });

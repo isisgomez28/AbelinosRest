@@ -26,6 +26,25 @@ angular.module('starter.services', [])
   };
 })
 
+.factory('StatusOrder', function ($http) {
+  var statusOrder = [];
+  return {
+    get: function (docID) {
+      var req = {
+        method: 'GET',
+        url: 'http://192.241.167.243:3000/order/checkstatus/',
+        params: docID 
+      };
+      console.log ("Petición de Estado de Orden");
+      $http(req).then(function (response){
+        statusOrder = response.data;
+        console.log(statusOrder);
+        return statusOrder;
+      });
+    }
+  };
+})
+
 .factory('Chats', function() {
   // Might use a resource here that returns a JSON array
 
