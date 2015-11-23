@@ -4,6 +4,9 @@ http://blog.ionic.io/handling-cors-issues-in-ionic/
 AngularJS - API Objects :D \0/
 https://docs.angularjs.org/api/ng/service/$http#get
 
+Validadaciones
+https://blog.nraboy.com/2015/08/angularjs-form-validation-in-your-ionic-framework-app/
+
 Guía para configurar los servicios
 http://mcgivery.com/ionic-using-factories-and-web-services-for-dynamic-data/
 

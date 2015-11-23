@@ -1,16 +1,22 @@
 <ion-view view-title="Inicio">
   <ion-content class="splash padding">
     <div class="branding">
-      <img src="#" alt="Abelinos Restaurant Logo">
+      <img src="/img/logo.png" alt="Abelinos Restaurant Logo">
     </div>
 	<div class="list" ng-controller="StatusOrderCtrl">
 		<div class="item item-divider">
 			Estado de Orden
 		</div>
-		<label class="item item-input">
-			<input type="text" placeholder="No. Cedula" ng-model="docID">
-		</label>
-		<a class="button icon-left ion-eye button-outline button-block button-assertive" ng-click="openModal()">Ver Estado</a>
+		<form name="statusForm">
+			<label class="item item-input">
+				<input name="clientID" type="text" placeholder="No. Cedula sin guiones" ng-model="docID" ng-minlength="11" required>
+			</label>
+		</form>
+		<div class="padding">
+            <p ng-show="statusForm.clientID.$error.required">* No. de Cedula requerido</p>
+            <p ng-show="statusForm.clientID.$error.minlength">* No. de Cedula debe ser de 11 caracteres</p>
+        </div>
+		<a class="button icon-left ion-eye button-outline button-block button-assertive" ng-disabled="statusForm.$invalid" ng-click="openModal()">Ver Estado</a>
 	</div>
   </ion-content>
 </ion-view>

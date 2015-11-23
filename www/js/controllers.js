@@ -29,7 +29,8 @@ angular.module('starter.controllers', [])
 
 .controller('StatusOrderCtrl', function ($scope, $ionicModal, StatusOrder){
     var docID = "";
-    var statusOrder = {};
+    var msgStatus = "";
+    var clientOrder = {};
 
     $ionicModal.fromTemplateUrl('templates/modal-template.html', {
       scope: $scope,
@@ -40,15 +41,43 @@ angular.module('starter.controllers', [])
   
    $scope.openModal = function() {
       docID = $scope.docID.toString();
-      statusOrder = StatusOrder.get(docID.toString());
-      console.log(statusOrder);
+      
+      StatusOrder.get(docID.toString()).then(function (statOrder){
+        clientOrder = statOrder;
+        console.log(clientOrder);
+
+        if (clientOrder.status == 1){          
+            msgStatus = "En Espera"; 
+            console.log(msgStatus);         
+        }
+        if (clientOrder.status == 2){
+            msgStatus = "En Proceso";
+            console.log(msgStatus);
+        }
+        if (clientOrder.status == 3){
+            msgStatus = "Lista";
+            console.log(msgStatus);
+        }
+        if (!clientOrder){
+            msgStatus = "No Posee Ordenes Creadas";
+            console.log(msgStatus);
+        }
+
+        clientOrder.status = msgStatus;
+
+        $scope.clientOrder = clientOrder;
+      });
+
+      console.log("Resultados de Orden");
       $scope.modal.show();
    };
   
    $scope.closeModal = function() {
       $scope.modal.hide();
       docID = "";
+      msgStatus = "";
       $scope.docID = docID;
+      $scope.msgStatus = msgStatus;
    };
   
    //Cleanup the modal when we're done with it!
