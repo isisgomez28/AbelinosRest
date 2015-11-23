@@ -6,7 +6,7 @@
 -->
 <ion-view view-title="Detalles de Plato">
   <ion-content class="padding">
-    <div class="list">
+    <div class="list" ng-controller="MenuDetailCtrl as dishDetailsCtrl">
       <!-- 
         Sustituir el # por "{{dish.image}}" para las imagenes :$
       -->
@@ -23,11 +23,11 @@
       <h5>
         {{dish.price}}
       </h5>
-      <label class="item item-input" ng-show="addToOrder">
+      <label class="item item-input">
         <span class="input-label">Cantidad</span>
-        <input type="number">
+        <input type="number" ng-model="quantity">
       </label>
-      <ion-checkbox ng-model="addToOrder">
+      <ion-checkbox ng-model="addToOrder" ng-click="addDish()">
         Agregar a Orden
       </ion-checkbox>
     </div>

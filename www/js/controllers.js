@@ -24,7 +24,35 @@ angular.module('starter.controllers', [])
 })
 
 .controller('MenuDetailCtrl', function ($scope, $stateParams, Menu) {
+    var selectedDishes = [];
     $scope.dish = Menu.get($stateParams.dishId - 1);
+
+    $scope.addDish = function () {
+        if ($scope.dish.id != null && $scope.addToOrder && $scope.quantity > 0){
+          console.log($scope.dish);
+          console.log($scope.addToOrder);
+          console.log($scope.quantity);
+          var dishSelected = {id: $scope.dish.id,
+            image: $scope.dish.image,
+            name: $scope.dish.name,
+            type: $scope.dish.type,
+            quantity: $scope.quantity, 
+            price: $scope.dish.price};
+          console.log(dishSelected);
+          selectedDishes.push(dishSelected);
+          dishSelected = {};
+        }
+
+        if ($scope.dish.id != null && !$scope.addToOrder && $scope.quantity > 0){
+          $scope.quantity = 0;
+          for (i in selectedDishes) {
+            if (selectedDishes[i].id == $scope.dish.id) {
+              console.log(selectedDishes[i]);
+              selectedDishes.splice(i, 1);
+            }
+          };
+        }
+    };
 })
 
 .controller('StatusOrderCtrl', function ($scope, $ionicModal, StatusOrder){
