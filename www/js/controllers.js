@@ -1,21 +1,7 @@
 angular.module('starter.controllers', [])
 
-.controller('ChatsCtrl', function($scope, Chats) {
-  // With the new view caching in Ionic, Controllers are only called
-  // when they are recreated or on app start, instead of every page change.
-  // To listen for when this page is active (for example, to refresh data),
-  // listen for the $ionicView.enter event:
-  //
-  //$scope.$on('$ionicView.enter', function(e) {
-  //});
-
-  $scope.chats = Chats.all();
-  $scope.remove = function(chat) {
-    Chats.remove(chat);
-  };
-})
-
 .controller ('MenuCtrl', function ($scope, $stateParams, Menu){
+    // Menu
     Menu.all().then(function (dishes){
         $scope.dishes = dishes;
     });
@@ -25,9 +11,14 @@ angular.module('starter.controllers', [])
 
 .controller('MenuDetailCtrl', function ($scope, $stateParams, Menu) {
     var selectedDishes = [];
+    var subtotal = 0;
+    var itbis = 0;
     $scope.dish = Menu.get($stateParams.dishId - 1);
 
+    console.log($scope);
+
     $scope.addDish = function () {
+        /// Agregar Plato
         if ($scope.dish.id != null && $scope.addToOrder && $scope.quantity > 0){
           console.log($scope.dish);
           console.log($scope.addToOrder);
@@ -42,7 +33,8 @@ angular.module('starter.controllers', [])
           selectedDishes.push(dishSelected);
           dishSelected = {};
         }
-
+        
+        // Elimina Plato de la Orden
         if ($scope.dish.id != null && !$scope.addToOrder && $scope.quantity > 0){
           $scope.quantity = 0;
           for (i in selectedDishes) {
@@ -52,6 +44,18 @@ angular.module('starter.controllers', [])
             }
           };
         }
+
+        /// Calculo de subtotal e ITBIS
+        if (selectedDishes.length > 0) {
+          for (i in selectedDishes) {
+            subtotal += selectedDishes[i].price * selectedDishes[i].quantity;
+          };
+
+          itbis = subtotal * 0.18;
+
+          console.log(subtotal);
+          console.log(itbis);
+        }
     };
 })
 
@@ -59,6 +63,8 @@ angular.module('starter.controllers', [])
     var docID = "";
     var msgStatus = "";
     var clientOrder = {};
+
+    console.log($scope);
 
     $ionicModal.fromTemplateUrl('templates/modal-template.html', {
       scope: $scope,
@@ -94,6 +100,8 @@ angular.module('starter.controllers', [])
         clientOrder.status = msgStatus;
 
         $scope.clientOrder = clientOrder;
+
+        console.log($scope);
       });
 
       console.log("Resultados de Orden");
@@ -122,6 +130,10 @@ angular.module('starter.controllers', [])
    $scope.$on('modal.removed', function() {
       // Execute action
    });
+})
+
+.controller('OrderCtrl', function ($scope, $stateParams){
+
 })
 
 .controller('OrderDetailCtrl', function($scope) {
