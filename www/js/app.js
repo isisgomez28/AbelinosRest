@@ -69,34 +69,23 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
     })
 
   .state('tab.order', {
-    url: '/order',
-    views: {
-      'tab-order': {
-        templateUrl: 'templates/tab-order.html',
-        controller: 'OrderCtrl'
+      url: '/order',
+      views: {
+        'tab-order': {
+          templateUrl: 'templates/tab-order.html',
+          controller: 'OrderCtrl'
+        }
       }
-    }
-  })
-  
-  .state('tab.order-detail', {
-    url: '/order/detail',
-    views: {
-      'tab-order': {
-        templateUrl: 'templates/order-detail.html',
-        controller: 'OrderDetailCtrl'
+    })  
+    .state('tab.order-detail', {
+      url: '/order/detail',
+      views: {
+        'tab-order': {
+          templateUrl: 'templates/order-detail.html',
+          controller: 'OrderDetailCtrl'
+        }
       }
-    }
-  })
-
-  .state('tab.order-placed', {
-    url: '/order/placed',
-    views: {
-      'tab-order': {
-        templateUrl: 'templates/order-placed.html',
-        controller: 'OrderDetailCtrl'
-      }
-    }
-  });
+    });
 
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/tab/home');

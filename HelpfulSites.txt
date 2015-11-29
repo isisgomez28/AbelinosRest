@@ -10,6 +10,15 @@ https://blog.nraboy.com/2015/08/angularjs-form-validation-in-your-ionic-framewor
 Guía para configurar los servicios
 http://mcgivery.com/ionic-using-factories-and-web-services-for-dynamic-data/
 
+SINGLETON ON ANGULARJS
+http://stackoverflow.com/questions/18939709/angularjs-when-to-use-service-instead-of-factory
+http://stackoverflow.com/questions/29797940/ionic-use-service-to-share-data-between-controllers
+http://www.dotnet-tricks.com/Tutorial/angularjs/V2YS090914-Understanding-AngularJS-Factory,-Service-and-Provider.html
+https://docs.angularjs.org/guide/providers
+http://iffycan.blogspot.com.ar/2013/05/angular-service-or-factory.html
+http://blog.manishchhabra.com/2013/09/angularjs-service-vs-factory-with-example/
+http://geekindulgence.com/environment-variables-in-angularjs-and-ionic/
+
 POSIBLEMENTE UTIL
 Construcción desde Cero --- Muy largo :$
 https://thinkster.io/ionic-framework-tutorial

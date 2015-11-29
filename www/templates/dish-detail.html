@@ -10,26 +10,29 @@
       <!-- 
         Sustituir el # por "{{dish.image}}" para las imagenes :$
       -->
-      <h3>
+      <h3 ng-model="dish.name">
         {{dish.name}}
       </h3>
       <img ng-src="#" style="width: 64px; height: 64px" alt="Imagen Plato">
-      <h4>
+      <h4 ng-model="dish.type">
         {{dish.type}}
       </h4>
-      <p>
+      <p ng-model="dish.description">
         {{dish.description}}
       </p>
-      <h5>
+      <h5 ng-model="dish.price">
         {{dish.price}}
       </h5>
       <label class="item item-input">
         <span class="input-label">Cantidad</span>
-        <input type="number" ng-model="quantity">
+        <input type="number" name="quantity" ng-model="dish.quantity" min="1" max="15">
       </label>
-      <ion-checkbox ng-model="addToOrder" ng-click="addDish()">
+      <button class="button button-full button-assertive" ng-click="addDish()">
         Agregar a Orden
-      </ion-checkbox>
+      </button>
+<!--       <ion-checkbox ng-model="addToOrder" ng-click="addDish(dish)">
+        Agregar a Orden
+      </ion-checkbox> -->
     </div>
   </ion-content>
 </ion-view>

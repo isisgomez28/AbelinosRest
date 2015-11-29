@@ -1,60 +1,112 @@
 angular.module('starter.controllers', [])
 
-.controller ('MenuCtrl', function ($scope, $stateParams, Menu){
-    // Menu
-    Menu.all().then(function (dishes){
-        $scope.dishes = dishes;
+.controller('OrderCtrl', function ($scope, SelectedDishes, $ionicPopup){
+  var clientID = "";
+  var clientName = "";
+  var clientEmail = "";
+  var creditCard = "";
+  var clientPhone = "";
+  var clientAddress = "";
+  var forTakeOut = false;
+  
+  $scope.$on('$ionicView.enter', function (){
+    console.log("====Controller====");
+    console.log("Refrescar Montos");
+    // GET Order Amounts
+    $scope.subtotal = SelectedDishes.getSubtotal();
+    $scope.itbis = SelectedDishes.getITBIS();
+    $scope.total = $scope.subtotal + $scope.itbis;
+  });
+
+  $scope.clearAddress = function () {
+    clientAddress = "";
+    $scope.clientAddress = clientAddress;
+    console.log($scope.forTakeOut);
+  };
+
+  $scope.placeOrder = function () {
+    var popupConfirm = $ionicPopup.confirm({
+      title: '<h3><strong>Confirmación</strong></h3>',
+      template: '<h4>¿Desea colocar su orden?</h4>'
     });
-    console.log("Peticion de Platos Ctrl.");
-    console.log(Menu.all());
+    popupConfirm.then(function (res){
+      if(res) {
+        console.log('Confirmado');
+        
+        if ($scope.forTakeOut){
+          $scope.clientAddress = "NA";
+        }
+        else {
+          $scope.forTakeOut = false;
+        }
+
+        var clientObj = {
+          clientID: $scope.clientID,
+          email: $scope.clientEmail,
+          telephone: $scope.clientPhone,
+          card: $scope.creditCard,
+          address: $scope.clientAddress,
+          localorder: $scope.forTakeOut
+        };
+
+        console.log(clientObj);
+        
+        // Limpieza de scope
+        $scope.clientID = "";
+        $scope.clientName = "";
+        $scope.clientEmail = "";
+        $scope.creditCard = "";
+        $scope.clientPhone = "";
+        $scope.clientAddress = "";
+        $scope.forDelivery = false;
+
+        // Metodo para colocar la orden
+        SelectedDishes.postOrder(clientObj);
+      } else {
+        console.log('No Confirmado');
+      }
+    });
+  };
 })
 
-.controller('MenuDetailCtrl', function ($scope, $stateParams, Menu) {
-    var selectedDishes = [];
-    var subtotal = 0;
-    var itbis = 0;
+.controller ('MenuCtrl', function ($scope, $stateParams, Menu){
+    // GET List of Dishes
+    Menu.all().then(function (dishes){
+        console.log("Peticion de Platos Ctrl.");
+        $scope.dishes = dishes;
+        console.log(dishes);
+    });
+})
+
+.controller('MenuDetailCtrl', function ($scope, $stateParams, Menu, SelectedDishes, $ionicPopup){
     $scope.dish = Menu.get($stateParams.dishId - 1);
 
-    console.log($scope);
-
     $scope.addDish = function () {
+        console.log("====Controller====");
+        console.log("Accion de agregar plato");
         /// Agregar Plato
-        if ($scope.dish.id != null && $scope.addToOrder && $scope.quantity > 0){
-          console.log($scope.dish);
-          console.log($scope.addToOrder);
-          console.log($scope.quantity);
+        if ($scope.dish.id != null && $scope.dish.quantity > 0){
           var dishSelected = {id: $scope.dish.id,
             image: $scope.dish.image,
             name: $scope.dish.name,
             type: $scope.dish.type,
-            quantity: $scope.quantity, 
+            quantity: $scope.dish.quantity, 
             price: $scope.dish.price};
+          console.log("Plato a Agregar al Lista de Orden");
           console.log(dishSelected);
-          selectedDishes.push(dishSelected);
+          // Agregar Plato a Servicio
+          SelectedDishes.addDishToOrder(dishSelected);
           dishSelected = {};
-        }
-        
-        // Elimina Plato de la Orden
-        if ($scope.dish.id != null && !$scope.addToOrder && $scope.quantity > 0){
-          $scope.quantity = 0;
-          for (i in selectedDishes) {
-            if (selectedDishes[i].id == $scope.dish.id) {
-              console.log(selectedDishes[i]);
-              selectedDishes.splice(i, 1);
-            }
-          };
-        }
 
-        /// Calculo de subtotal e ITBIS
-        if (selectedDishes.length > 0) {
-          for (i in selectedDishes) {
-            subtotal += selectedDishes[i].price * selectedDishes[i].quantity;
-          };
-
-          itbis = subtotal * 0.18;
-
-          console.log(subtotal);
-          console.log(itbis);
+          // Popup - Plato Agregado
+          var popupAdded = $ionicPopup.alert({
+            title: '<h4><strong>Confirmacion</strong></h4>',
+            subTitle: 'Plato agregado a su orden.',
+            okType: 'button-assertive'
+          });
+          popupAdded.then(function(res){
+            $scope.dish.quantity = 1;
+          });
         }
     };
 })
@@ -63,8 +115,6 @@ angular.module('starter.controllers', [])
     var docID = "";
     var msgStatus = "";
     var clientOrder = {};
-
-    console.log($scope);
 
     $ionicModal.fromTemplateUrl('templates/modal-template.html', {
       scope: $scope,
@@ -132,10 +182,19 @@ angular.module('starter.controllers', [])
    });
 })
 
-.controller('OrderCtrl', function ($scope, $stateParams){
+.controller('OrderDetailCtrl', function ($scope, SelectedDishes) {
+  var selectedDishes = [];
 
-})
+  $scope.$on('$ionicView.enter', function (){
+    console.log("====Controller====");
+    console.log("Refrescar Platos Seleccionados");
+    // GET Platos Seleccionados
+    selectedDishes = SelectedDishes.getAll();
+    $scope.selectedDishes = selectedDishes;
+  });
 
-.controller('OrderDetailCtrl', function($scope) {
-
+  $scope.deleteSelected = function (objDish) {
+    SelectedDishes.remove(objDish.id);
+    $scope.selectedDishes = SelectedDishes.getAll();
+  };
 });

@@ -19,8 +19,11 @@ angular.module('starter.services', [])
     },
     // Get ONE
     get: function (dishID) {
-      console.log("Peticion de Plato - Srv" + dishID);
-      return dishes[dishID];
+      var dish = {};
+      console.log("Peticion de Plato - Srv " + dishID);
+      dish = dishes[dishID];
+      dish.quantity = 1;
+      return dish;
     }
   };
 })
@@ -37,5 +40,102 @@ angular.module('starter.services', [])
         return statusOrder;
       });
     }
+  };
+})
+
+.service ('SelectedDishes', function ($http){
+  var dishesToOrder = [];
+  var subtotal = 0;
+  var itbis = 0;
+
+  this.addDishToOrder = function (dish) {
+    console.log("====Service====");
+    console.log("Accion de Añadir Plato a Orden");
+    console.log(dish);
+    dishesToOrder.push(dish);
+    console.log("Lista de Platos Seleccionados");
+    console.log(dishesToOrder);
+  };
+  
+  this.isEmpty = function () {
+      var empty = true;
+      if (dishesToOrder.length > 0) {
+        empty = false;
+      }
+      return empty;
+  };
+
+  this.getAll = function () {
+    console.log("====Service====");
+    console.log("Accion de ver Platos Seleccionados");
+    return dishesToOrder;
+  };
+
+  this.remove = function (dishID){
+    console.log("====Service====");
+    console.log("Eliminar plato: " + dishID);
+    for (i in dishesToOrder) {
+      if (dishesToOrder[i].id == dishID) {
+        console.log(dishesToOrder[i]);
+        dishesToOrder.splice(i, 1);
+      }
+    };
+  };
+
+  this.getSubtotal = function (){
+    subtotal = 0;
+    /// Calculo de subtotal e ITBIS
+    if (dishesToOrder.length > 0) {
+      for (i in dishesToOrder) {
+        subtotal += dishesToOrder[i].price * dishesToOrder[i].quantity;
+      };
+      console.log(subtotal);
+    }
+
+    return subtotal;
+  };
+
+  this.getITBIS = function () {
+    if (dishesToOrder.length > 0){
+      itbis = subtotal * 0.18;
+    }
+    console.log(subtotal);
+
+    return itbis;
+  };
+
+  this.postOrder = function (clientInfo) {
+    var dishesIDs = [];
+    var j = 0;
+
+    // Collección de IDs de Platos Seleccionados
+    for (i in dishesToOrder) {
+        while (j < dishesToOrder[i].quantity) {
+          dishesIDs.push(dishesToOrder[i].id);
+          j++;
+        }
+        j = 0;
+        // Eliminando platos seleccionados
+        dishesToOrder.splice(i, 1);
+    };
+
+    var url = "http://192.241.167.243:3000/order/create";
+
+    var config = {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      }
+    };
+
+    clientInfo.dish = dishesIDs;
+    clientInfo.status = 1;
+    clientInfo.tax = 0.18;
+
+    console.log(config);
+    console.log(clientInfo);
+
+    // send request to API
+    var res = $http.post(url, clientInfo, config);
+    console.log(res);
   };
 });
