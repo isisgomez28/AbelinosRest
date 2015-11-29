@@ -84,7 +84,8 @@ angular.module('starter.services', [])
 
   this.getSubtotal = function (){
     subtotal = 0;
-    /// Calculo de subtotal e ITBIS
+    
+    /// Calculo de subtotal
     if (dishesToOrder.length > 0) {
       for (i in dishesToOrder) {
         subtotal += dishesToOrder[i].price * dishesToOrder[i].quantity;
@@ -96,6 +97,9 @@ angular.module('starter.services', [])
   };
 
   this.getITBIS = function () {
+    itbis = 0;
+    
+    /// Calculo de ITBIS
     if (dishesToOrder.length > 0){
       itbis = subtotal * 0.18;
     }
@@ -121,21 +125,16 @@ angular.module('starter.services', [])
 
     var url = "http://192.241.167.243:3000/order/create";
 
-    var config = {
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded'
-      }
-    };
-
-    clientInfo.dish = dishesIDs;
-    clientInfo.status = 1;
-    clientInfo.tax = 0.18;
-
     console.log(config);
     console.log(clientInfo);
 
+    clientInfo.dish = dishesIDs;
+    clientInfo.tax = 0.28;
+    clientInfo.price = 0;
+    clientInfo.status = 1;
+
     // send request to API
-    var res = $http.post(url, clientInfo, config);
+    var res = $http.post(url, clientInfo);
     console.log(res);
   };
 });

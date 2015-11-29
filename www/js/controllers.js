@@ -50,18 +50,28 @@ angular.module('starter.controllers', [])
         };
 
         console.log(clientObj);
-        
-        // Limpieza de scope
-        $scope.clientID = "";
-        $scope.clientName = "";
-        $scope.clientEmail = "";
-        $scope.creditCard = "";
-        $scope.clientPhone = "";
-        $scope.clientAddress = "";
-        $scope.forDelivery = false;
 
         // Metodo para colocar la orden
         SelectedDishes.postOrder(clientObj);
+
+        var alertPopup = $ionicPopup.alert({
+          title: '<h4><strong>Confirmacion</strong></h4>',
+          subTitle: 'Plato agregado a su orden.',
+          okType: 'button-assertive'
+        });
+        alertPopup.then(function(res) {
+          // Limpieza de scope
+          $scope.clientID = "";
+          $scope.clientName = "";
+          $scope.clientEmail = "";
+          $scope.creditCard = "";
+          $scope.clientPhone = "";
+          $scope.clientAddress = "";
+          $scope.forDelivery = false;
+          $scope.subtotal = 0;
+          $scope.itbis = 0;
+          $scope.total = 0;
+        });
       } else {
         console.log('No Confirmado');
       }
