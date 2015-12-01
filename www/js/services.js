@@ -125,7 +125,6 @@ angular.module('starter.services', [])
 
     var url = "http://192.241.167.243:3000/order/create";
 
-    console.log(config);
     console.log(clientInfo);
 
     clientInfo.dish = dishesIDs;
