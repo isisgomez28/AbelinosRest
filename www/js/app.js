@@ -20,9 +20,35 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
       // org.apache.cordova.statusbar required
       StatusBar.styleLightContent();
     }
+    if(window.Connection){
+      if(navigator.connection.type == Connection.NONE){
+        alert("No hay Conexion");
+      }
+    }
   });
 })
 
+//Method to check the connection to the internet
+/*var myApp= angular.module('myApp', ['ionic'])
+.run(function($ionicPlatform, $ionicPopup){
+  $ionicPlatform.ready(function(){
+    if(window.Connection){
+      if(navigator.connection.type == Connection.NONE){
+        $ionicPopup.confirm({
+          title: "No hay Conexion",
+          content: "Su dispositivo no tiene Conexion a Internet."
+        })
+        .then(function(result){
+          if(!result){
+            ionic.Platform.exitApp();
+          }
+        });
+      }
+    }
+  });
+
+});
+//*/
 .config(function($stateProvider, $urlRouterProvider) {
 
   // Ionic uses AngularUI Router which uses the concept of states
@@ -76,7 +102,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
           controller: 'OrderCtrl'
         }
       }
-    })  
+    })
     .state('tab.order-detail', {
       url: '/order/detail',
       views: {
