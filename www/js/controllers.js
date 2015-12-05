@@ -8,7 +8,7 @@ angular.module('starter.controllers', [])
   var clientPhone = "";
   var clientAddress = "";
   var forTakeOut = false;
-  
+
   $scope.$on('$ionicView.enter', function (){
     console.log("====Controller====");
     console.log("Refrescar Montos");
@@ -32,7 +32,7 @@ angular.module('starter.controllers', [])
     popupConfirm.then(function (res){
       if(res) {
         console.log('Confirmado');
-        
+
         if ($scope.forTakeOut){
           $scope.clientAddress = "NA";
         }
@@ -100,7 +100,7 @@ angular.module('starter.controllers', [])
             image: $scope.dish.image,
             name: $scope.dish.name,
             type: $scope.dish.type,
-            quantity: $scope.dish.quantity, 
+            quantity: $scope.dish.quantity,
             price: $scope.dish.price};
           console.log("Plato a Agregar al Lista de Orden");
           console.log(dishSelected);
@@ -132,17 +132,17 @@ angular.module('starter.controllers', [])
    }).then(function(modal) {
       $scope.modal = modal;
    });
-  
+
    $scope.openModal = function() {
       docID = $scope.docID.toString();
-      
+
       StatusOrder.get(docID.toString()).then(function (statOrder){
         clientOrder = statOrder;
         console.log(clientOrder);
 
-        if (clientOrder.status == 1){          
-            msgStatus = "En Espera"; 
-            console.log(msgStatus);         
+        if (clientOrder.status == 1){
+            msgStatus = "En Espera";
+            console.log(msgStatus);
         }
         if (clientOrder.status == 2){
             msgStatus = "En Proceso";
@@ -167,7 +167,7 @@ angular.module('starter.controllers', [])
       console.log("Resultados de Orden");
       $scope.modal.show();
    };
-  
+
    $scope.closeModal = function() {
       $scope.modal.hide();
       docID = "";
@@ -175,17 +175,17 @@ angular.module('starter.controllers', [])
       $scope.docID = docID;
       $scope.msgStatus = msgStatus;
    };
-  
+
    //Cleanup the modal when we're done with it!
    $scope.$on('$destroy', function() {
       $scope.modal.remove();
    });
-  
+
    // Execute action on hide modal
    $scope.$on('modal.hidden', function() {
       // Execute action
    });
-  
+
    // Execute action on remove modal
    $scope.$on('modal.removed', function() {
       // Execute action

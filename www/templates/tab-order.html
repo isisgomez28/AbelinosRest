@@ -1,36 +1,73 @@
 <ion-view view-title="Orden">
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.6/angular-messages.min.js"></script>
   <ion-content >
-	<div class="card" name="orderForm" ng-controller="OrderCtrl as ordersCtrl">
+
+<form name="form" action="index.html" method="post" novalidate="" ng-submit="signIn(signinForm)">
+
+  <script id="templates/form-errors.html" type="text/ng-template">
+    <div class="form-error" ng-message="required">This field is required.</div>
+    <div class="form-error" ng-message="minlength">This field is must be at least 5 characters.</div>
+    <div class="form-error" ng-message="maxlength">This field is must be less than 50 characters</div>
+  </script>
+
+	<div id="hola2" class="card" name="orderForm" ng-controller="OrderCtrl as ordersCtrl">
 		<div class="item item-divider">
 			Informacion del Cliente
 		</div>
-		<label class="item item-input">
+    <div>
+  	<label  class="item item-input" ng-class="{ 'has-error' : form.Cedula.$invalid  || form.$submitted, 'valid-lr' :form.Cedula.$valid }">
 			<span class="input-label">Cédula</span>
-			<input type="text" ng-model="clientID">
+			<input  type="text" name = "Cedula" ng-model="clientID" pattern="[0-9]{11}" placeholder="No. Cedula sin guiones" ng-minlength="11" ng-maxlength="11" required="" >
 		</label>
-		<label class="item item-input">
-			<span class="input-label">Nombre</span>
-			<input type="text" ng-model="clientName">
+
+    <div class="form-error" ng-messages="form.Cedula.$error" ></div>
+
+  </div>
+
+  <div >
+		<label  class="item item-input" ng-class="{ 'has-error' : form.Nombre.$invalid  || form.$submitted, 'valid-lr' :form.Nombre.$valid }">
+			<span   class="input-label">Nombre</span>
+			<input  type="text" name="Nombre" pattern="^[A-Za-z\s]+$" ng-model="clientName" required>
 		</label>
-		<label class="item item-input">
-			<span class="input-label">Email</span>
-			<input type="email" ng-model="clientEmail">
+    <div class="form-error" ng-messages="form.Nombre.$error" ></div>
+  </div>
+  <div >
+		<label  class="item item-input" ng-class="{ 'has-error' : form.email.$invalid  || form.$submitted, 'valid-lr' :form.email.$valid }">
+			<span  class="input-label">Email</span>
+			<input  type="email" name="email" ng-model="clientEmail" placeholder="ejemplo@gmail.com" required>
 		</label>
-		<label class="item item-input">
-			<span class="input-label">No. Tarjeta</span>
-			<input type="text" ng-model="creditCard">
+    <div class="form-error" ng-messages="form.email.$error" ></div>
+  </div>
+
+  <div>
+  	<label  class="item item-input" ng-class="{ 'has-error' : form.tarjeta.$invalid  || form.$submitted, 'valid-lr' :form.tarjeta.$valid }">
+			<span   class="input-label">No. Tarjeta</span>
+			<input type="text" name="tarjeta" ng-model="creditCard" pattern="[0-9]{16}" placeholder="No. tarjeta sin guiones"  ng-minlength="16" ng-maxlength="16" required >
 		</label>
-		<label class="item item-input">
-			<span class="input-label">Teléfono</span>
-			<input type="tel" ng-model="clientPhone">
+    <div class="form-error" ng-messages="form.tarjeta.$error" ></div>
+</div>
+  <div >
+  	<label   class="item item-input" ng-class="{ 'has-error' : form.telef.$invalid  || form.$submitted, 'valid-lr' :form.telef.$valid }">
+			<span  class="input-label">Teléfono</span>
+			<input  type="tel" name="telef"ng-model="clientPhone" pattern="[0-9]{10}" placeholder="No. Telefono sin guiones"  ng-minlength="10" ng-maxlength="10" required >
 		</label>
-		<label class="item item-input" ng-show="!forTakeOut">
-			<span class="input-label">Dirección</span>
-			<input type="text" ng-model="clientAddress">
+    <div class="form-error" ng-messages="form.telef.$error" ></div>
+</div>
+  <div >
+  	<label  class="item item-input" ng-class="{ 'has-error' : form.dir.$invalid  || form.$submitted, 'valid-lr' :form.dir.$valid }" ng-show="!forTakeOut">
+			<span  class="input-label">Dirección</span>
+			<input  type="text" name="dir" ng-model="clientAddress" >
 		</label>
+    <div class="form-error" ng-messages="form.dir.$error" ></div>
+</div>
+
+  <div>
 		<ion-checkbox ng-model="forTakeOut" ng-click="clearAddress()">
 			Take-Out
 		</ion-checkbox>
+  </div>
+
+<div id="hola" class="form-errors" ng-messages="signinForm.username.$error" >
 		<div class="item item-body">
 			<h4>Subtotal: {{subtotal | number:2}}</h4>
 			<h4>ITBIS: {{itbis | number:2}}</h4>
@@ -40,10 +77,13 @@
 			<div class="col">
 				<a href="#/tab/order/detail" class="button icon-left ion-chevron-left button-clear button-dark">Ver Detalle</a>
 			</div>
-			<div class="col">
-				<a class="button icon-right ion-android-restaurant button-clear button-dark" ng-disabled="orderForm.$invalid" ng-click="placeOrder()">Colocar Orden</a>
+			<div  class="col">
+				<button  Class="button button-block button-positive" ng-disabled="form.$invalid" ng-click="placeOrder()">Colocar Orden</button>
 			</div>
 		</div>
+
 	</div>
+</div>
+    </form>
   </ion-content>
 </ion-view>
