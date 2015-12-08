@@ -56,7 +56,7 @@ angular.module('starter.controllers', [])
 
         var alertPopup = $ionicPopup.alert({
           title: '<h4><strong>Confirmacion</strong></h4>',
-          subTitle: 'Plato agregado a su orden.',
+          subTitle: 'Orden realizada Correctamente.',
           okType: 'button-assertive'
         });
         alertPopup.then(function(res) {
