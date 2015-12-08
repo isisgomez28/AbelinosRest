@@ -3,7 +3,7 @@
     <ion-list>
         <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="dish in dishes" type="item-text-wrap" href="#/tab/dishes/{{dish.id}}">
         <!-- <img ng-src="{{dish.image}}" alt="Imagen Plato"> -->
-        <img ng-src="#" alt="Imagen Plato">
+        <img ng-src="{{dish.image || '/img/logo.png'}}" alt="Imagen Plato">
         <h2>{{dish.name}}</h2>
         <p>{{dish.description}}</p>
         <i class="icon ion-chevron-right icon-accessory"></i>

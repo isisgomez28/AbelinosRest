@@ -5,7 +5,7 @@
 		</ion-toggle>
 		<ion-list ng-repeat="plate in selectedDishes" show-delete="shouldShowDelete">
 			<ion-item>
-				<img ng-src="#" alt="Foto Plato" style="width: 64px; height: 64px">
+				<img ng-src="{{dish.image || '/img/logo.png'}}" alt="Foto Plato" style="width: 64px; height: 64px">
 				<h3>
 					{{plate.name}}
 				</h3>
